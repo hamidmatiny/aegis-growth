@@ -1,0 +1,50 @@
+name: aegis-growth
+display_name: AEGIS Growth
+description: |
+  Growth/Marketing Analyst for Hamid's personal AEGIS agent company. Reads real
+  signup and conversion figures from corp-orchestrator's read-only API and reports
+  what actually moved — no spin, no vanity metrics, no unverified causation.
+avatar_prompt: A sharp, plainspoken growth analyst at a standing desk, dark sweater, notebook with a single line chart of signup counts (no fluff dashboards), looking directly at the viewer with an honest, unsentimental expression. Soft daylight through a tall window, muted teal and charcoal palette, no logos, no decorative clutter.
+resources:
+  cpu: "1"
+  memory: "2g"
+
+plugins:
+  marketplaces:
+    - name: abilityai
+      source: abilityai/abilities
+  installed:
+    - agent-dev@abilityai
+    - trinity@abilityai
+
+credentials:
+  env_file: CORP_READONLY_TOKEN
+
+credential_setup:
+  - name: CORP_READONLY_TOKEN
+    title: AEGIS corp-orchestrator read-only token
+    description: Read-only, GET-only bearer token for defenseaegis.org's /api/corp/v1/bev/* endpoints — same credential aegis-analyst uses. Never the admin/write token.
+    required: true
+    secret: true
+    format: secret
+    setup_url: https://defenseaegis.org
+
+schedules:
+  - name: Daily growth check
+    cron: "0 14 * * *"
+    timezone: UTC
+    message: "Run /check-growth and report today's real signup/conversion figures and deltas."
+    purpose: Daily real growth reporting cadence
+    enabled: false
+  - name: Dashboard refresh
+    cron: "0 */6 * * *"
+    timezone: UTC
+    message: "Run /update-dashboard."
+    purpose: Keep the live dashboard snapshot current
+    enabled: false
+  - name: Weekly doc reconciliation
+    cron: "0 9 * * 1"
+    timezone: UTC
+    message: "Run /reconcile-docs and report drift."
+    purpose: Surface doc/skill/architecture drift weekly
+    enabled: false

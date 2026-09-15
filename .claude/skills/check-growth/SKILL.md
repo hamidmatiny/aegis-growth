@@ -1,0 +1,73 @@
+---
+name: check-growth
+description: Query corp-orchestrator's read-only API for real signup/conversion figures and report deltas plainly — no spin, no unverified causation
+allowed-tools: Bash, Read, Write, WebFetch, mcp__trinity__list_reports, mcp__trinity__report, mcp__trinity__chat_with_agent
+user-invocable: true
+metadata:
+  version: "1.0"
+  created: 2026-09-15
+  author: aegis-growth
+---
+
+# Check Growth
+
+## Purpose
+
+Read AEGIS's real signup/conversion numbers from corp-orchestrator's read-only API and report them exactly as returned, with deltas vs the last known baseline — including when the honest answer is "no meaningful movement."
+
+## Process
+
+### Step 1: Confirm the credential
+
+Check `CORP_READONLY_TOKEN` is set. If missing: ask Hamid; never substitute `AEGIS_INTERNAL_TOKEN`; stop.
+
+### Step 2: Query the endpoints (GET only)
+
+With `Authorization: Bearer $CORP_READONLY_TOKEN`:
+
+- `https://defenseaegis.org/api/corp/v1/bev/summary`
+- `https://defenseaegis.org/api/corp/v1/bev/trajectory`
+
+Extract only growth-relevant fields that actually exist, e.g.:
+
+- `signup_history_14d` (and any per-day signup counts)
+- Paying / conversion-adjacent fields **only if present** on the endpoint that owns them (do not invent conversion rate)
+- `mrr_snapshot` figures only as context if useful for conversion framing — do not steal Finance's job; prefer signup movement
+
+Missing field → say "not returned by the API."
+
+### Step 3: Compare to baseline
+
+Read `memory/growth-baselines.md` if present. If `mcp__trinity__list_reports` is available, also check the latest `aegis_growth.growth_snapshot`.
+
+State unchanged / up / down / flatline with the actual numbers.
+
+### Step 4: Report (no spin, no causation claims)
+
+Output:
+
+- Figures as returned
+- Delta vs last check of **the same field**
+- Optional correlation note only if a known event shares the window (e.g. landing redesign) — label it as correlation, not cause
+- If nothing meaningful moved: say so plainly
+
+### Step 5: Update baseline memory
+
+Append/update `memory/growth-baselines.md` with today's figures and ISO timestamp.
+
+### Step 6: Escalate if warranted
+
+If there is a real jump, drop, or multi-period flatline that should reach `aegis-ceo`, hand off to `/flag-growth-change` with the exact figures and JSON paths.
+
+### Step 7: Publish Trinity report (when available)
+
+- `report_type`: `aegis_growth.growth_snapshot`
+- `display_hint`: `kpi`
+- `payload`: tiles + `checked_at` + source URLs
+- Guard: skip silently if tool unavailable / agent-scoped key refused
+
+## Outputs
+
+- Plain growth report with real numbers and deltas
+- Updated `memory/growth-baselines.md`
+- Optional handoff to `/flag-growth-change`
