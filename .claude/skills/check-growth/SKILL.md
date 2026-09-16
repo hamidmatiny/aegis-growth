@@ -19,11 +19,20 @@ Read AEGIS's real signup/conversion numbers from corp-orchestrator's read-only A
 
 ### Step 1: Confirm the credential
 
-Check `CORP_READONLY_TOKEN` is set. If missing: ask Hamid; never substitute `AEGIS_INTERNAL_TOKEN`; stop.
+`CORP_READONLY_TOKEN` lives in `/home/developer/.env` (Trinity credentials). It is **not** always exported into the process environment — scheduled/headless shells often see an empty `printenv`. Always load it before any API call:
+
+```bash
+set -a
+[ -f /home/developer/.env ] && . /home/developer/.env
+[ -f .env ] && . ./.env
+set +a
+```
+
+Then verify: `test -n "$CORP_READONLY_TOKEN"` (expect non-empty). If still empty: ask Hamid; never substitute `AEGIS_INTERNAL_TOKEN`; stop. Do **not** treat a 401/`admin login required` as an expired token until you have confirmed the env was actually loaded — empty Bearer produces that exact error.
 
 ### Step 2: Query the endpoints (GET only)
 
-With `Authorization: Bearer $CORP_READONLY_TOKEN`:
+With `Authorization: Bearer $CORP_READONLY_TOKEN` (after Step 1 load):
 
 - `https://defenseaegis.org/api/corp/v1/bev/summary`
 - `https://defenseaegis.org/api/corp/v1/bev/trajectory`
