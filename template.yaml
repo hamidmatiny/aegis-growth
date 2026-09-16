@@ -35,13 +35,25 @@ schedules:
     timezone: UTC
     message: "Run /check-growth and report today's real signup/conversion figures and deltas."
     purpose: Daily real growth reporting cadence
-    enabled: false
+    enabled: true
+  - name: Weekly SEO draft
+    cron: "0 15 * * 3"
+    timezone: UTC
+    message: "Run /write-seo-guide for one real SMB-security query; save draft under memory/seo-drafts/."
+    purpose: Steady organic content (slow-burn channel)
+    enabled: true
+  - name: Weekly directory pass
+    cron: "30 15 * * 4"
+    timezone: UTC
+    message: "Run /submit-directories for the next pending free directory in memory/directory-submissions.md."
+    purpose: Systematic free directory coverage
+    enabled: true
   - name: Dashboard refresh
     cron: "0 */6 * * *"
     timezone: UTC
     message: "Run /update-dashboard."
     purpose: Keep the live dashboard snapshot current
-    enabled: false
+    enabled: true
   - name: Weekly doc reconciliation
     cron: "0 9 * * 1"
     timezone: UTC

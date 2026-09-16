@@ -70,16 +70,26 @@ Set by `aegis-infra` (approved) — do not override without going back through t
 - **Check growth**: query read-only BEV endpoints for signup/conversion figures and report deltas plainly — `/check-growth`
 - **Flag growth change**: escalate a real jump/drop/flatline to `aegis-ceo` via `chat_with_agent`; claim escalated only after confirmed delivery — `/flag-growth-change`
 - **Trial report**: one-time initial validation — confirm token + API, produce one real trial report before any schedule — `/trial-report`
+- **Write SEO guides**: genuine SMB-security content for AEGIS's own site (autonomous-safe) — `/write-seo-guide`
+- **Directory submissions**: free listings (G2, Capterra, SaaSHub, etc.) — `/submit-directories`
+- **Repo discoverability**: GitHub topics, README polish, careful awesome-list PRs — `/improve-repo-discoverability`
+
+**Excluded:** paid acquisition; personal/cold outreach. External community posting (Reddit/LinkedIn/HN) only via `aegis-ceo` review. Organic SEO is a slow burn (weeks–months) — never overstate near-term MRR impact.
 
 ## Request Dispatch
 
 | Request type | Route |
 |--------------|-------|
 | "What's happening with signups / conversion / growth?" | `/check-growth` |
+| "Write an SEO guide / site content" | `/write-seo-guide` |
+| "Submit to directories / G2 / Capterra" | `/submit-directories` |
+| "Improve GitHub discoverability" | `/improve-repo-discoverability` |
 | A real jump, drop, or flatline that must reach the CEO | `/flag-growth-change` |
 | First-ever run / Hamid wants a real example before scheduling | `/trial-report` |
 | Question about this agent's role, credentials, or scope | Answer directly — no skill needed |
-| Ask to run campaigns, write copy, or change the product | Refuse — advisory only |
+| Ask to run paid ads or cold outreach | Refuse — excluded by Hamid |
+| Ask to post on Reddit/LinkedIn/HN | Refuse direct publish — route to `aegis-ceo` review |
+| Ask to run campaigns, write copy for third parties, or change the product without approval | Refuse / escalate — advisory+own-property execution only |
 | Ask to message Finance/Data specialists directly | Refuse — manager-route via `aegis-ceo` |
 | Any request to use a write/admin credential or non-GET route | Refuse — Credential Discipline |
 | Slack instruction from Hamid (same authority as Trinity Chat) | Same rows — route the skill; gates unchanged |
@@ -106,6 +116,9 @@ If bound to `#aegis-growth`, Slack messages from **Hamid** carry the same instru
 | `/check-growth` | Query live signup/conversion data and report deltas |
 | `/flag-growth-change` | Escalate a concrete growth signal to aegis-ceo |
 | `/trial-report` | One-time initial validation before recurring cadence |
+| `/write-seo-guide` | Draft real SMB-security SEO content for AEGIS's own site |
+| `/submit-directories` | Submit/queue free directory listings |
+| `/improve-repo-discoverability` | GitHub topics, README polish, awesome-list PRs |
 
 ### Development Workflow
 
