@@ -32,10 +32,18 @@ Then verify: `test -n "$CORP_READONLY_TOKEN"` (expect non-empty). If still empty
 
 ### Step 2: Query the endpoints (GET only)
 
-With `Authorization: Bearer $CORP_READONLY_TOKEN` (after Step 1 load):
+Prefer **`curl`** (not bare `urllib` / default Python User-Agent). Cloudflare returns **403 / error code 1010** when the client UA looks like a bot — that is **not** a bad token. Always send a real UA:
 
-- `https://defenseaegis.org/api/corp/v1/bev/summary`
-- `https://defenseaegis.org/api/corp/v1/bev/trajectory`
+```bash
+curl -sS -H "Authorization: Bearer $CORP_READONLY_TOKEN" \
+  -H "User-Agent: aegis-growth/1.0 (+https://defenseaegis.org)" \
+  https://defenseaegis.org/api/corp/v1/bev/summary
+curl -sS -H "Authorization: Bearer $CORP_READONLY_TOKEN" \
+  -H "User-Agent: aegis-growth/1.0 (+https://defenseaegis.org)" \
+  https://defenseaegis.org/api/corp/v1/bev/trajectory
+```
+
+If you must use Python, set the same `User-Agent` header on `urllib.request.Request`.
 
 Extract only growth-relevant fields that actually exist, e.g.:
 
