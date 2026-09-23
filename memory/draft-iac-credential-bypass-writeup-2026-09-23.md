@@ -1,6 +1,6 @@
-# Draft — A credential-echo bypass, and the patch (do not publish)
+# A credential-echo bypass, and the patch
 
-**Status:** Draft for Hamid’s review. Not posted to HN, dev.to, Reddit, or anywhere else.
+**Status (2026-09-23):** Hamid approved this text for publication and skipped a further review. Raw attack prompts are not in this file. Show HN was not posted: no Hacker News session is available in the browser or in Chrome. dev.to and r/LocalLLaMA stay unposted on purpose — the channel order is Show HN, then dev.to, then r/LocalLLaMA, not all at once.
 
 **Voice:** technical, first person if Hamid posts it. No “case study” gloss. Numbers below are from the repo and the live retest on the day of the merge.
 

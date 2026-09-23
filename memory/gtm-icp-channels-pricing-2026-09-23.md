@@ -106,4 +106,4 @@ LiteLLM’s public shape is the same idea: free self-host, paid enterprise for t
 - Do not create a new Stripe price in this pass.
 - PR #93 only changes what the landing *features*. The $29 Q&A SKU can keep existing until Hamid retires that example. Killing the price in Stripe is a separate yes.
 
-**Ask:** approve the shape (free self-host is the offer; paid is hosted + retention + SSO later, metered, not a seat), and say whether $49/100k-class is the band to design toward or whether Team stays “contact” until the hosted path is real.
+**Decision (Hamid, 2026-09-23):** approved as the direction. Community is live at $0. Team is about $49 per 100k logs once a hosted gateway exists. Org is custom, later, undesigned. Stripe was not changed. Record: `memory/pricing-direction-2026-09-23.md`. Fleet graph: `decision:pricing-shape-2026-09-23`.
