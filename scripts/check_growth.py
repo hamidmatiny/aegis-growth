@@ -59,6 +59,9 @@ def latest_day(trajectory: dict) -> dict | None:
 
 
 def signups_line(trajectory: dict) -> str:
+    hist = trajectory.get("signup_history_14d") if isinstance(trajectory, dict) else None
+    if isinstance(hist, list) and not hist:
+        return "empty (no days returned)"
     last = latest_day(trajectory)
     if not last or "signups" not in last:
         return "not returned by the API"

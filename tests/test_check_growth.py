@@ -14,6 +14,7 @@ class CheckGrowthTest(unittest.TestCase):
 
     def test_missing_history(self):
         self.assertEqual(cg.signups_line({}), "not returned by the API")
+        self.assertEqual(cg.signups_line({"signup_history_14d": []}), "empty (no days returned)")
 
     def test_flat_and_changed(self):
         self.assertEqual(cg.movement("0 on 2026-10-08", "0 on 2026-10-08"), "no meaningful movement")
