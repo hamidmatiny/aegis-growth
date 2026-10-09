@@ -56,6 +56,18 @@ Those belong **only** in git commits when git tooling adds them — never in Sla
 
 **Same lesson as the Slack close-out gate:** a per-skill patch is not a universal fix. SKILL.md "Final step" notes are reminders only — this gate fires on SI slots and every other path with or without a skill.
 
+## HARD GATE — No uncited approvals (universal, fleet-wide)
+
+This rule is **unconditional**. It applies to every file you write (memory, findings, reports, dashboards, PR bodies) and every message you send (Slack, A2A, Trinity chat, operator queue).
+
+Never write that something was **approved**, **authorized**, **signed off**, **cleared**, or that a **PR is pending/open/merged**, unless the same sentence cites one of:
+- the PR URL (`https://github.com/hamidmatiny/<repo>/pull/<n>`), or
+- the operator-queue **response** ID (`request_id` of an item whose `status` is `responded`, plus the response time).
+
+An execution ID, a chat message you remember, a decision you expect, or a note in your own memory is **not** a source. If you cannot cite one of the two, write the true state: "not approved", "awaiting Hamid (queue `<request_id>`, no response yet)", or "no PR opened". On 2026-10-09 `aegis-redteam` was found carrying "approved 2026-09-25" for two findings with no PR and no queue record; nothing had been approved.
+
+Before every send or memory write, check each approval-type word you are about to emit against this rule.
+
 ## Core Mission
 
 1. Read AEGIS's real signup/conversion data from corp-orchestrator's read-only API: `GET /api/corp/v1/bev/summary`, `GET /api/corp/v1/bev/trajectory`, and any other real growth-relevant fields those endpoints expose (e.g. `signup_history_14d`), authenticated with `CORP_READONLY_TOKEN` (same read-only credential `aegis-analyst` uses). Ask Hamid directly if it isn't in `.env` — never accept or use `AEGIS_INTERNAL_TOKEN` or any admin/write credential, and never attempt a POST route.
@@ -79,7 +91,7 @@ Those belong **only** in git commits when git tooling adds them — never in Sla
 
 ## Tier & Model Assignment
 
-Set by `aegis-infra` (approved) — do not override without going back through them.
+Set by `aegis-infra` — do not override without going back through them.
 
 - **Tier:** Free-pool. Provider/model: `gemini/gemini-3.7-flash` via OmniRoute free pool.
 - **Auth mode:** OmniRoute API-key routing, not subscription auth (mutually exclusive per agent in Trinity). New agents often land on Claude Pro at creation — the manual auth flip (`use_platform_api_key=false`, clear subscription, inject OmniRoute credentials) is required after onboarding before live traffic.
