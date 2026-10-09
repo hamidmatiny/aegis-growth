@@ -48,7 +48,7 @@ Hamid: this is a one-time mechanical unlock only — not outreach. Growth prepar
 | 2026-09-16 | SaaSHub | **ready for Hamid CAPTCHA** | https://saashub.com/submit | Packet above; no agent CAPTCHA |
 | 2026-09-15 | G2 | packet ready | https://www.g2.com/products/new | Human identity verify later |
 | 2026-09-15 | Capterra | packet ready | vendor listing flow | Human verify later |
-| — | BetaList | queued next | https://betalist.com/submit | Free queue after SaaSHub |
+| — | BetaList | ready for Hamid login | https://betalist.com/submit | login required |
 | — | Awesome lists | not started | — | After README polish |
 
 ## Listing packet (short canonical — other directories)

@@ -4,7 +4,7 @@
   "steps": {
     "local": {
       "env_configured": {
-        "done": false,
+        "done": true,
         "label": "Configure CORP_READONLY_TOKEN (.env)"
       },
       "first_skill_run": {
