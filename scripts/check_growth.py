@@ -69,10 +69,17 @@ def signups_line(trajectory: dict) -> str:
     return f"{last['signups']}" + (f" on {day}" if day else "")
 
 
+def count_of(line: str | None) -> int | None:
+    """Signup count from a signups_line() string, or None if there is none."""
+    head = (line or "").split(" ", 1)[0]
+    return int(head) if head.isdigit() else None
+
+
 def movement(current: str, previous: str | None) -> str:
     if not previous:
         return "no prior baseline"
-    if current == previous:
+    now = count_of(current)
+    if current == previous or (now is not None and now == count_of(previous)):
         return "no meaningful movement"
     return f"was {previous}"
 
@@ -125,7 +132,8 @@ def main() -> int:
         baseline = json.loads(baseline_path.read_text())
     print(render(trajectory, baseline))
     baseline_path.parent.mkdir(parents=True, exist_ok=True)
-    baseline_path.write_text(json.dumps({"signups": signups_line(trajectory)}, indent=2) + "\n")
+    record = {"signups": signups_line(trajectory), "previous": (baseline or {}).get("signups")}
+    baseline_path.write_text(json.dumps(record, indent=2) + "\n")
     return 0
 
 
